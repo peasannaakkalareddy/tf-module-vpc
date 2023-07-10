@@ -24,3 +24,8 @@ resource "aws_internet_gateway" "igw" {
 
   tags = merge(var.tags, { Name = "${var.env}-igw" })
 }
+
+resource "aws_eip" "ngw" {
+  count = length(var.subnets["public"].cidr_block)
+  tags  = merge(var.tags, { Name = "${var.env}-ngw" })
+}
